@@ -1,5 +1,138 @@
 
-target/
-dbt_packages/
-logs/
+# =============================================================================
+# dbt Ecommerce Analytics - Git Ignore Configuration
+# =============================================================================
+
+# =============================================================================
+# dbt Artifacts - Arquivos gerados pelo dbt
+# =============================================================================
+# Pasta de artifacts (compilação, execução, etc)
+/target/
+/dbt_packages/
+/dbt_modules/
+
+# Arquivos de lock
+dbt.lock
+*.lock
+
+# =============================================================================
+# Python - Ambiente virtual e dependências
+# =============================================================================
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
 .env
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Poetry
+poetry.lock
+
+# =============================================================================
+# IDE - Arquivos de editores e IDEs
+# =============================================================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# PyCharm
+.python-version
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# =============================================================================
+# Database - Arquivos de banco de dados
+# =============================================================================
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+*.duckdb.wal
+
+# =============================================================================
+# Logs e Temporários
+# =============================================================================
+/logs/
+*.log
+.log
+tmp/
+temp/
+
+# =============================================================================
+# Específicos do Projeto
+# =============================================================================
+# Profile do dbt (contém credenciais sensíveis)
+profiles.yml
+~/.dbt/profiles.yml
+
+# Seeds/dados brutos (opcional)
+# /seeds/
+
+# Arquivos de configuração local (não versionados)
+.env.local
+.env.*.local
+
+# =============================================================================
+# Opcional: Descomente se quiser ignorar mais coisas
+# =============================================================================
+# Backups
+*.bak
+*.backup
+
+# OS-specific
+._*
+.Spotlight-V100
+.Trashes
+
+# Node (se usados ferramentas JS)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# =============================================================================
+# IMPORTANTE: NÃO IGNORE ESTES ARQUIVOS - São parte do projeto
+# =============================================================================
+# !seeds/
+# !models/
+# !tests/
+# !macros/
+# !README.md
+# !dbt_project.yml
+# !profiles.yml.example

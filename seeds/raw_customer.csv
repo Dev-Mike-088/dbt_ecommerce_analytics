@@ -1,101 +1,101 @@
-id,first_name,last_name,email
-1,Ana,Silva,ana.silva@email.com
-2,Bruno,Souza,bruno.souza@email.com
-3,Carla,Mendes,carla.mendes@email.com
-4,Diego,Ribeiro,diego.ribeiro@email.com
-5,Elena,Oliveira,elena.oliveira@email.com
-6,Fernando,Santos,fernando.santos@email.com
-7,Gabriela,Lima,gabriela.lima@email.com
-8,Hugo,Ferreira,hugo.ferreira@email.com
-9,Isabela,Costa,isabela.costa@email.com
-10,Joao,Pereira,joao.pereira@email.com
-11,Karen,Alves,karen.alves@email.com
-12,Lucas,Rodrigues,lucas.rodrigues@email.com
-13,Mariana,Nascimento,mariana.nascimento@email.com
-14,Nicolas,Araujo,nicolas.araujo@email.com
-15,Olivia,Carvalho,olivia.carvalho@email.com
-16,Paulo,Gomes,paulo.gomes@email.com
-17,Quintino,Martins,quintino.martins@email.com
-18,Rafaela,Barros,rafaela.barros@email.com
-19,Samuel,Freitas,samuel.freitas@email.com
-20,Tatiana,Barbosa,tatiana.barbosa@email.com
-21,Ubirajara,Pinto,ubirajara.pinto@email.com
-22,Vanessa,Moura,vanessa.moura@email.com
-23,Wagner,Cavalcanti,wagner.cavalcanti@email.com
-24,Xavier,Dias,xavier.dias@email.com
-25,Yasmin,Castro,yasmin.castro@email.com
-26,Zeca,Campos,zeca.campos@email.com
-27,Arthur,Cardoso,arthur.cardoso@email.com
-28,Beatriz,Teixeira,beatriz.teixeira@email.com
-29,Caio,Marques,caio.marques@email.com
-30,Daniela,Moreira,daniela.moreira@email.com
-31,Eduardo,Medeiros,eduardo.medeiros@email.com
-32,Fernanda,Lopes,fernanda.lopes@email.com
-33,Gabriel,Vieira,gabriel.vieira@email.com
-34,Helena,Santana,helena.santana@email.com
-35,Igor,Nunes,igor.nunes@email.com
-36,Juliana,Machado,juliana.machado@email.com
-37,Kevyn,Rocha,kevyn.rocha@email.com
-38,Livia,Ramos,livia.ramos@email.com
-39,Matheus,Reis,matheus.reis@email.com
-40,Nathalia,Farias,nathalia.farias@email.com
-41,Otavio,Lins,otavio.lins@email.com
-42,Patricia,Miranda,patricia.miranda@email.com
-43,Queila,Guimaraes,queila.guimaraes@email.com
-44,Rodrigo,Siqueira,rodrigo.siqueira@email.com
-45,Sofia,Fonseca,sofia.fonseca@email.com
-46,Thiago,Borges,thiago.borges@email.com
-47,Ulysses,Viana,ulysses.viana@email.com
-48,Valeria,Bueno,valeria.bueno@email.com
-49,Willian,Andrade,willian.andrade@email.com
-50,Ximena,Duarte,ximena.duarte@email.com
-51,Yago,Sampaio,yago.sampaio@email.com
-52,Zuleica,Nogueira,zuleica.nogueira@email.com
-53,Alexandre,Pires,alexandre.pires@email.com
-54,Bianca,Azevedo,bianca.azevedo@email.com
-55,Claudio,Xavier,claudio.xavier@email.com
-56,Denise,Camargo,denise.camargo@email.com
-57,Enzo,Pacheco,enzo.pacheco@email.com
-58,Fabiana,Franco,fabiana.franco@email.com
-59,Guilherme,Assis,guilherme.assis@email.com
-60,Heitor,Rezende,heitor.rezende@email.com
-61,Ingrid,Peixoto,ingrid.peixoto@email.com
-62,Jardel,Muniz,jardel.muniz@email.com
-63,Karina,Novaes,karina.novaes@email.com
-64,Leonardo,Aguiar,leonardo.aguiar@email.com
-65,Monique,Motta,monique.motta@email.com
-66,Nelson,Prado,nelson.prado@email.com
-67,Olga,Souto,olga.souto@email.com
-68,Priscila,Brito,priscila.brito@email.com
-69,Quenia,Tavares,quenia.tavares@email.com
-70,Renan,Guerra,renan.guerra@email.com
-71,Sabrina,Sales,sabrina.sales@email.com
-72,Tiago,Meireles,tiago.meireles@email.com
-73,Umberto,Fagundes,umberto.fagundes@email.com
-74,Vinicius,Galvao,vinicius.galvao@email.com
-75,Wanda,Figueiredo,wanda.figueiredo@email.com
-76,Yuri,Godoy,yuri.godoy@email.com
-77,Zilma,Lacerda,zilma.lacerda@email.com
-78,Andre,Abreu,andre.abreu@email.com
-79,Bruna,Bessa,bruna.bessa@email.com
-80,Cesar,Chaves,cesar.chaves@email.com
-81,Debora,Drummond,debora.drummond@email.com
-82,Elias,Esteves,elias.esteves@email.com
-83,Flavia,Fagundes,flavia.fagundes@email.com
-84,Gerson,Giacomo,gerson.giacomo@email.com
-85,Hilda,Horta,hilda.horta@email.com
-86,Iara,Ibrahim,iara.ibrahim@email.com
-87,Jorge,Junqueira,jorge.junqueira@email.com
-88,Katia,Kuster,katia.kuster@email.com
-89,Laercio,Leal,laercio.leal@email.com
-90,Mirella,Menezes,mirella.menezes@email.com
-91,Norberto,Neves,norberto.neves@email.com
-92,Orlando,Ornellas,orlando.ornellas@email.com
-93,Pamela,Paiva,pamela.paiva@email.com
-94,Ronaldo,Rangel,ronaldo.rangel@email.com
-95,Sandra,Sarmento,sandra.sarmento@email.com
-96,Tania,Torres,tania.torres@email.com
-97,Vitor,Valente,vitor.valente@email.com
-98,Wesley,Wanderley,wesley.wanderley@email.com
-99,Yara,Youssef,yara.youssef@email.com
-100,Zeneide,Zamboni,zeneide.zamboni@email.com
+customer_id,customer_name,email,created_at
+1,Diego Silva,diego.silva1@email.com,2024-10-08
+2,Hugo Santos,hugo.santos2@email.com,2024-05-22
+3,Diego Nascimento,diego.nascimento3@email.com,2024-03-30
+4,Sofia Rodrigues,sofia.rodrigues4@email.com,2024-02-02
+5,Ana Souza,ana.souza5@email.com,2024-08-11
+6,Hugo Nascimento,hugo.nascimento6@email.com,2024-01-28
+7,Rafael Santos,rafael.santos7@email.com,2025-07-12
+8,Nicolas Santos,nicolas.santos8@email.com,2025-04-04
+9,Sofia Pereira,sofia.pereira9@email.com,2024-01-07
+10,Felipe Rodrigues,felipe.rodrigues10@email.com,2024-12-14
+11,Isabela Oliveira,isabela.oliveira11@email.com,2024-08-08
+12,Karina Souza,karina.souza12@email.com,2024-04-04
+13,Mariana Souza,mariana.souza13@email.com,2025-01-02
+14,Lucas Lima,lucas.lima14@email.com,2024-09-27
+15,Bruno Almeida,bruno.almeida15@email.com,2025-07-03
+16,Diego Rodrigues,diego.rodrigues16@email.com,2024-03-21
+17,Rafael Pereira,rafael.pereira17@email.com,2025-01-05
+18,Sofia Santos,sofia.santos18@email.com,2024-03-12
+19,Bruno Santos,bruno.santos19@email.com,2024-10-23
+20,Carla Santos,carla.santos20@email.com,2024-04-13
+21,Mariana Pereira,mariana.pereira21@email.com,2025-04-09
+22,Lucas Oliveira,lucas.oliveira22@email.com,2025-01-14
+23,Lucas Santos,lucas.santos23@email.com,2024-09-30
+24,Carla Lima,carla.lima24@email.com,2024-06-24
+25,Rafael Santos,rafael.santos25@email.com,2024-06-16
+26,Olivia Rodrigues,olivia.rodrigues26@email.com,2024-10-03
+27,Rafael Santos,rafael.santos27@email.com,2024-11-28
+28,Bruno Santos,bruno.santos28@email.com,2024-02-02
+29,Karina Rodrigues,karina.rodrigues29@email.com,2024-10-01
+30,Carla Santos,carla.santos30@email.com,2025-08-03
+31,Karina Santos,karina.santos31@email.com,2025-05-26
+32,Mariana Almeida,mariana.almeida32@email.com,2024-05-26
+33,Isabela Oliveira,isabela.oliveira33@email.com,2024-09-09
+34,Rafael Nascimento,rafael.nascimento34@email.com,2024-09-26
+35,Sofia Rodrigues,sofia.rodrigues35@email.com,2025-08-20
+36,Mariana Costa,mariana.costa36@email.com,2024-08-12
+37,Elena Nascimento,elena.nascimento37@email.com,2025-05-20
+38,Carla Silva,carla.silva38@email.com,2024-04-22
+39,Elena Oliveira,elena.oliveira39@email.com,2025-03-08
+40,Tiago Souza,tiago.souza40@email.com,2025-01-29
+41,Mariana Lima,mariana.lima41@email.com,2025-04-24
+42,Queila Pereira,queila.pereira42@email.com,2025-07-20
+43,Ana Souza,ana.souza43@email.com,2025-07-03
+44,Isabela Costa,isabela.costa44@email.com,2024-04-24
+45,Joao Rodrigues,joao.rodrigues45@email.com,2024-06-10
+46,Olivia Silva,olivia.silva46@email.com,2024-09-26
+47,Queila Oliveira,queila.oliveira47@email.com,2025-06-03
+48,Diego Pereira,diego.pereira48@email.com,2025-06-03
+49,Tiago Santos,tiago.santos49@email.com,2024-06-05
+50,Lucas Oliveira,lucas.oliveira50@email.com,2025-07-06
+51,Queila Silva,queila.silva51@email.com,2024-11-27
+52,Pedro Silva,pedro.silva52@email.com,2024-04-24
+53,Lucas Pereira,lucas.pereira53@email.com,2024-09-02
+54,Bruno Santos,bruno.santos54@email.com,2025-08-03
+55,Carla Souza,carla.souza55@email.com,2025-05-12
+56,Carla Nascimento,carla.nascimento56@email.com,2024-05-08
+57,Elena Almeida,elena.almeida57@email.com,2025-07-16
+58,Felipe Pereira,felipe.pereira58@email.com,2025-06-24
+59,Tiago Rodrigues,tiago.rodrigues59@email.com,2024-08-04
+60,Rafael Santos,rafael.santos60@email.com,2024-11-15
+61,Mariana Costa,mariana.costa61@email.com,2025-03-24
+62,Queila Almeida,queila.almeida62@email.com,2024-05-03
+63,Hugo Santos,hugo.santos63@email.com,2024-03-06
+64,Karina Silva,karina.silva64@email.com,2025-07-21
+65,Hugo Lima,hugo.lima65@email.com,2024-08-13
+66,Ana Souza,ana.souza66@email.com,2024-03-01
+67,Hugo Souza,hugo.souza67@email.com,2024-02-02
+68,Karina Souza,karina.souza68@email.com,2025-06-10
+69,Hugo Pereira,hugo.pereira69@email.com,2025-05-12
+70,Gabriela Nascimento,gabriela.nascimento70@email.com,2024-05-15
+71,Sofia Lima,sofia.lima71@email.com,2025-04-29
+72,Hugo Almeida,hugo.almeida72@email.com,2025-02-20
+73,Gabriela Souza,gabriela.souza73@email.com,2024-04-09
+74,Nicolas Costa,nicolas.costa74@email.com,2025-03-09
+75,Nicolas Almeida,nicolas.almeida75@email.com,2024-02-25
+76,Diego Silva,diego.silva76@email.com,2025-02-16
+77,Karina Souza,karina.souza77@email.com,2024-09-11
+78,Gabriela Santos,gabriela.santos78@email.com,2025-07-03
+79,Olivia Oliveira,olivia.oliveira79@email.com,2025-03-08
+80,Felipe Pereira,felipe.pereira80@email.com,2025-04-18
+81,Hugo Souza,hugo.souza81@email.com,2025-03-29
+82,Rafael Souza,rafael.souza82@email.com,2024-02-21
+83,Rafael Silva,rafael.silva83@email.com,2024-04-05
+84,Hugo Oliveira,hugo.oliveira84@email.com,2025-02-20
+85,Pedro Almeida,pedro.almeida85@email.com,2024-08-06
+86,Mariana Silva,mariana.silva86@email.com,2024-06-17
+87,Mariana Silva,mariana.silva87@email.com,2025-02-03
+88,Isabela Almeida,isabela.almeida88@email.com,2024-10-19
+89,Nicolas Nascimento,nicolas.nascimento89@email.com,2025-05-13
+90,Elena Santos,elena.santos90@email.com,2024-10-30
+91,Gabriela Silva,gabriela.silva91@email.com,2025-08-16
+92,Rafael Silva,rafael.silva92@email.com,2024-11-17
+93,Bruno Silva,bruno.silva93@email.com,2025-08-21
+94,Pedro Nascimento,pedro.nascimento94@email.com,2025-06-27
+95,Felipe Silva,felipe.silva95@email.com,2025-06-04
+96,Carla Oliveira,carla.oliveira96@email.com,2024-03-11
+97,Tiago Souza,tiago.souza97@email.com,2024-08-28
+98,Mariana Souza,mariana.souza98@email.com,2025-08-06
+99,Hugo Lima,hugo.lima99@email.com,2024-02-10
+100,Tiago Souza,tiago.souza100@email.com,2025-03-05

@@ -1,0 +1,12 @@
+dbt_ecommerce_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      port: 5432
+      threads: 4
+      user: SEU_USERNAME
+      password: "SUA_SENHA"
+      dbname: NOME_DO_SEU_BANCO
+      schema: NOME_DO_SEU_SCHEMA

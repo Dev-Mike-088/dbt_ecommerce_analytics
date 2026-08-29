@@ -1,36 +1,107 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
+# =============================================================================
+# dbt Ecommerce Analytics - Project Configuration
+# =============================================================================
+# Nome do projeto dbt
 name: 'dbt_ecommerce_analytics'
 version: '1.0.0'
 
-# This setting configures which "profile" dbt uses for this project.
+# Profile usado para conectar ao banco de dados (definido em ~/.dbt/profiles.yml)
 profile: 'dbt_ecommerce_analytics'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
-model-paths: ["models"]
-analysis-paths: ["analyses"]
-test-paths: ["tests"]
-seed-paths: ["seeds"]
-macro-paths: ["macros"]
-snapshot-paths: ["snapshots"]
+# Modelo de controle de versão (optional)
+config-version: 2
 
-clean-targets:         # directories to be removed by `dbt clean`
+# =============================================================================
+# Paths - Onde encontrar diferentes tipos de arquivos
+# =============================================================================
+model-paths: ["models"]           # Modelos SQL e YAML
+analysis-paths: ["analyses"]      # Análises ad-hoc
+test-paths: ["tests"]             # Testes customizados
+seed-paths: ["seeds"]             # Dados CSV para carregar
+macro-paths: ["macros"]           # Macros reutilizáveis
+snapshot-paths: ["snapshots"]     # Snapshots (SCD)
+
+# =============================================================================
+# Clean Targets - Diretórios removidos ao executar 'dbt clean'
+# =============================================================================
+clean-targets:
   - "target"
   - "dbt_packages"
 
+# =============================================================================
+# Configuração de Modelos
+# =============================================================================
+# Documentação completa: https://docs.getdbt.com/docs/configuring-models
 
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/
-# directory as views. These settings can be overridden in the individual model
-# files using the `{{ config(...) }}` macro.
 models:
-  dbt_ecommerce_analytcs:
-    # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+  dbt_ecommerce_analytics:
+    # =========================================================================
+    # STAGING - Modelos de limpeza e validação (primeira camada)
+    # =========================================================================
+    stg:
+      +materialized: table        # Usar TABLE para melhor performance
+      +schema: transacoes         # Schema separado no banco
+      +tags: ["staging"]          # Tags para filtragem
+      +docs:
+        show: true                # Mostrar na documentação
+
+    # =========================================================================
+    # INTERMEDIATE - Transformações complexas (segunda camada)
+    # =========================================================================
+    int:
+      +materialized: incremental  # Usar INCREMENTAL para otimizar
+      +schema: transacoes
+      +tags: ["intermediate"]
+      +docs:
+        show: true
+
+    # =========================================================================
+    # FINAL - Modelos analíticos prontos para BI (terceira camada)
+    # =========================================================================
+    final:
+      +schema: transacoes
+      +tags: ["final"]
+      +docs:
+        show: true
+
+      # Dimensions
+      dimensions:
+        +materialized: table
+        +tags: ["dimension"]
+
+      # Facts
+      facts:
+        +materialized: table
+        +tags: ["fact"]
+
+      # Analytics/Reporting
+      analytcs:
+        +materialized: view
+        +tags: ["analytics", "reporting"]
+
+# =============================================================================
+# Seed Configurations - Configurações para dados CSV
+# =============================================================================
+seeds:
+  dbt_ecommerce_analytics:
+    +schema: raw                  # Schema para dados brutos
+    +tags: ["seed"]
+
+# =============================================================================
+# Vars - Variáveis globais que podem ser usadas nos modelos
+# =============================================================================
+vars:
+  'start_date': '2023-01-01'      # Data de início para filtros
+  'key_date': '{{ run_started_at.strftime("%Y-%m-%d") }}'  # Data da execução
+
+# =============================================================================
+# Require dbt Version - Versão mínima do dbt necessária
+# =============================================================================
+require-dbt-version: [">=1.0.0"]
+
+# =============================================================================
+# Flags - Comportamento global do dbt
+# =============================================================================
+flags:
+  static_parser: false            # Parser estático (experimental)
+  send_anonymous_usage_stats: true # Compartilhar estatísticas anônimas

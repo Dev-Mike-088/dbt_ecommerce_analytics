@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Tabela de staging com limpeza e normalização de dados de clientes. Remove duplicatas e padroniza formatos. Materializado como TABLE para melhor performance."
+    columns:
+      - name: customer_id
+        description: "Identificador único do cliente"
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Nome completo do cliente (renomeado de customer_name)"
+        tests:
+          - not_null
+      - name: email
+        description: "Endereço de email do cliente (único por cliente)"
+        tests:
+          - unique
+          - not_null
+      - name: created_at
+        description: "Data de criação da conta do cliente"
+        tests:
+          - not_null
+
+  - name: stg_orders
+    description: "Tabela de staging com limpeza de dados de pedidos. Inclui validações de integridade referencial e status. Materializado como TABLE."
+    columns:
+      - name: order_id
+        description: "Identificador único do pedido"
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Chave estrangeira para cliente"
+        tests:
+          - not_null
+      - name: order_date
+        description: "Data do pedido"
+        tests:
+          - not_null
+      - name: status
+        description: "Status atual do pedido"
+        tests:
+          - not_null
+
+  - name: stg_order_items
+    description: "Tabela de staging com itens de pedidos. Cada linha representa um produto em um pedido específico. Materializado como TABLE."
+    columns:
+      - name: order_item_id
+        description: "Identificador único do item do pedido"
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Chave estrangeira para pedido"
+        tests:
+          - not_null
+      - name: product_id
+        description: "Chave estrangeira para produto"
+        tests:
+          - not_null
+      - name: quantity
+        description: "Quantidade de unidades do produto neste item"
+        tests:
+          - not_null
+      - name: unit_price
+        description: "Preço unitário do produto no momento da compra"
+        tests:
+          - not_null
+
+  - name: stg_products
+    description: "Tabela de staging com limpeza de dados de produtos. Padroniza nomes e categorias. Materializado como TABLE."
+    columns:
+      - name: product_id
+        description: "Identificador único do produto"
+        tests:
+          - unique
+          - not_null
+      - name: product
+        description: "Nome do produto (renomeado de product_name)"
+        tests:
+          - not_null
+      - name: category
+        description: "Categoria do produto"
+        tests:
+          - not_null
+      - name: price
+        description: "Preço atual do produto"
+        tests:
+          - not_null

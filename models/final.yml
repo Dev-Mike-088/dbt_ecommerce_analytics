@@ -1,0 +1,108 @@
+version: 2
+
+models:
+  # DIMENSIONS
+  - name: dim_customers
+    description: "Dimensão de clientes. Contém informações demográficas e de contato de cada cliente. Utilizada em análises e relatórios de vendas por cliente. Materializado como VIEW."
+    columns:
+      - name: id
+        description: "Chave primária. Identificador único do cliente"
+        tests:
+          - not_null
+      - name: name
+        description: "Nome completo do cliente"
+      - name: email
+        description: "Email do cliente"
+      - name: created_at
+        description: "Data de criação da conta"
+
+  - name: dim_products
+    description: "Dimensão de produtos. Contém informações sobre produtos, categorias e preços. Utilizada para análises de performance de produtos. Materializado como VIEW."
+    columns:
+      - name: id
+        description: "Chave primária. Identificador único do produto"
+        tests:
+          - not_null
+      - name: product
+        description: "Nome do produto"
+      - name: category
+        description: "Categoria do produto"
+      - name: price
+        description: "Preço do produto"
+
+  # FACTS
+  - name: fct_sales
+    description: "Tabela de fatos de vendas. Registra cada venda com suas dimensões (cliente, produto, etc). Centro da análise analítica. Materializado como VIEW com agregações."
+    columns:
+      - name: order_id
+        description: "Chave estrangeira para pedido"
+        tests:
+          - not_null
+      - name: product_id
+        description: "Chave estrangeira para produto"
+        tests:
+          - not_null
+      - name: customer_id
+        description: "Chave estrangeira para cliente"
+        tests:
+          - not_null
+      - name: sell_date
+        description: "Data da venda"
+      - name: quantity
+        description: "Quantidade de unidades vendidas"
+      - name: price
+        description: "Preço unitário"
+      - name: total_amount
+        description: "Valor total da venda (quantidade * preço)"
+
+  # ANALYTICS
+  - name: customer_metrics
+    description: "Tabela analítica com métricas agregadas por cliente. Inclui número de pedidos, total gasto, itens comprados, ticket médio. Usada para análises de comportamento de clientes."
+    columns:
+      - name: id
+        description: "Identificador do cliente"
+        tests:
+          - unique
+          - not_null
+      - name: orders
+        description: "Número total de pedidos do cliente"
+      - name: items_bought
+        description: "Total de itens comprados pelo cliente"
+      - name: total_spent
+        description: "Valor total gasto pelo cliente"
+      - name: average_ticket
+        description: "Ticket médio por transação"
+
+  - name: product_performance
+    description: "Tabela analítica com métricas de performance por produto. Inclui quantidade vendida e receita total. Usada para análises de produto."
+    columns:
+      - name: product_id
+        description: "Identificador do produto"
+        tests:
+          - unique
+          - not_null
+      - name: product
+        description: "Nome do produto"
+      - name: category
+        description: "Categoria do produto"
+      - name: units_sold
+        description: "Quantidade total de unidades vendidas"
+      - name: revenue
+        description: "Receita total do produto"
+
+  - name: sales_summary
+    description: "Tabela analítica com resumo de vendas mensais. Inclui totais de vendas, transações, itens e ticket médio. Usada para monitoramento de KPIs gerais."
+    columns:
+      - name: month
+        description: "Ano-Mês (YYYY-MM) da venda"
+        tests:
+          - unique
+          - not_null
+      - name: orders
+        description: "Número de pedidos do mês"
+      - name: items_sold
+        description: "Total de itens vendidos no mês"
+      - name: revenue
+        description: "Receita total do mês"
+      - name: average_ticket
+        description: "Valor médio por transação no mês"

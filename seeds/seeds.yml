@@ -1,0 +1,91 @@
+version: 2
+
+seeds:
+  - name: raw_customer
+    description: "Dados brutos de clientes. Fonte primária para construção da dimensão de clientes (dim_customers)."
+    columns:
+      - name: customer_id
+        description: "Identificador único do cliente"
+        tests:
+          - unique
+          - not_null
+      - name: customer_name
+        description: "Nome completo do cliente"
+        tests:
+          - not_null
+      - name: email
+        description: "Endereço de email do cliente"
+        tests:
+          - not_null
+          - unique
+      - name: created_at
+        description: "Data de criação da conta do cliente"
+        tests:
+          - not_null
+
+  - name: raw_orders
+    description: "Dados brutos de pedidos. Fonte primária para construção da tabela de fatos de vendas (fct_sales)."
+    columns:
+      - name: order_id
+        description: "Identificador único do pedido"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Chave estrangeira referenciando o cliente"
+        tests:
+          - not_null
+      - name: order_date
+        description: "Data do pedido"
+        tests:
+          - not_null
+      - name: status
+        description: "Status do pedido (completed, pending, cancelled)"
+        tests:
+          - not_null
+
+  - name: raw_order_items
+    description: "Itens de cada pedido. Relaciona produtos com pedidos e inclui quantidades e preços."
+    columns:
+      - name: order_item_id
+        description: "Identificador único do item do pedido"
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Chave estrangeira referenciando o pedido"
+        tests:
+          - not_null
+      - name: product_id
+        description: "Chave estrangeira referenciando o produto"
+        tests:
+          - not_null
+      - name: quantity
+        description: "Quantidade de unidades do produto no pedido"
+        tests:
+          - not_null
+      - name: unit_price
+        description: "Preço unitário do produto no momento do pedido"
+        tests:
+          - not_null
+
+  - name: raw_products
+    description: "Dados brutos de produtos. Fonte primária para construção da dimensão de produtos (dim_products)."
+    columns:
+      - name: product_id
+        description: "Identificador único do produto"
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: "Nome do produto"
+        tests:
+          - not_null
+      - name: category
+        description: "Categoria do produto"
+        tests:
+          - not_null
+      - name: price
+        description: "Preço atual do produto"
+        tests:
+          - not_null  

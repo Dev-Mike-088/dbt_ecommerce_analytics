@@ -1,21 +1,21 @@
 -- =============================================================================
--- STAGING: Limpeza e normalização de dados de clientes
+-- STAGING: Limpeza e normalização de dados de produtos
 -- =============================================================================
--- Descrição: Tabela de staging que padroniza e valida dados de clientes
---            vindos da seed raw_customer. Remove duplicatas e normaliza formatos.
+-- Descrição: Tabela de staging que padroniza e valida dados de produtos
+--            vindos da seed raw_products. Normaliza nomes e categorias.
 -- Materialização: TABLE (para melhor performance em joins downstream)
 -- Frequência: Atualizada a cada execução dbt run
 -- =============================================================================
 
 {{
     config(
-        materialized = 'table'
+        materialized = 'table',
     )
 }}
 
 select
-    a.customer_id,
-    a.customer_name as name,    -- Renomeia para padrão camelCase
-    a.email,
-    a.created_at
-from {{ ref('raw_customer') }} a
+    a.product_id,
+    a.product_name as product,  -- Renomeia para padrão camelCase
+    a.category,
+    a.price
+from {{ ref('raw_products') }} a
