@@ -11,8 +11,7 @@
 
 {{
     config(
-        materialized = 'incremental',
-        schema = 'int'
+        materialized = 'incremental'
     )
 }}
 
