@@ -1,11 +1,11 @@
 -- =============================================================================
--- FINAL: Dimensão de Clientes
+-- FINAL: dim_customers
 -- =============================================================================
--- Descrição: Tabela de dimensão contendo informações demográficas e de contato
---            de clientes. Utilizada em análises e relatórios de vendas por cliente.
--- Materialización: VIEW
--- Frequência: Atualizada a cada execução dbt run
--- Uso: Análises de comportamento, segmentação e lifetime value de clientes
+-- Descrição: dimensão final de clientes, expondo atributos principais para análise
+--            comercial, segmentação e acompanhamento do relacionamento com o cliente.
+-- Origem: int_dim_customers
+-- Materialização: view
+-- Objetivo: disponibilizar a tabela analítica de clientes para BI e relatórios.
 -- =============================================================================
 
 {{
@@ -15,8 +15,5 @@
 }}
 
 select
-    a.customer_id as id,
-    a.name,
-    a.email,
-    a.created_at as first_login
-from {{ ref('int_customers') }} a
+*
+from {{ ref('int_dim_customers') }} a

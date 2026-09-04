@@ -1,138 +1,330 @@
-# 📊 dbt Ecommerce Analytics
+# dbt Ecommerce Analytics
 
-Um projeto moderno de análise de e-commerce construído com **dbt** e **PostgreSQL**, seguindo as melhores práticas de transformação de dados com arquitetura em camadas (Staging → Intermediate → Final).
+Bem-vindo ao projeto de analytics de e-commerce com dbt. Este repositório foi estruturado para transformar dados brutos em modelos prontos para análise, relatórios e dashboards.
 
-## 📋 Visão Geral
+## Visão geral
 
-Este projeto implementa um pipeline de dados completo para análise de vendas de e-commerce, incluindo:
-- **Limpeza e normalização** de dados brutos (Staging)
-- **Transformações intermediárias** com agregações e joins (Intermediate)
-- **Modelos analíticos** prontos para BI e relatórios (Final)
-- **Testes automáticos** para garantir qualidade dos dados
-- **Documentação integrada** de tabelas, colunas e relacionamentos
+O projeto segue uma arquitetura em camadas:
 
-### Arquitetura de Dados
+- Staging: limpeza, padronização e validação dos dados brutos.
+- Intermediate: joins, enriquecimento e agregações preparatórias.
+- Final: dimensões, fatos e métricas analíticas prontas para consumo.
 
+A base de entrada está em `seeds/`, onde os arquivos CSV são carregados e convertidos em modelos SQL para análise.
+
+---
+
+## Objetivo do projeto
+
+O objetivo principal é criar uma base analítica para:
+
+- entender o comportamento dos clientes;
+- acompanhar a performance de produtos;
+- analisar vendas, receitas e ticket médio;
+- servir como fonte para dashboards e relatórios de BI.
+
+---
+
+## Stack tecnológica
+
+- Python
+- dbt Core
+- PostgreSQL
+- Git
+- Arquivos CSV como dados de origem
+
+---
+
+## Estrutura do projeto
+
+```text
+dbt_ecommerce_analytics/
+├── analyses/
+├── macros/
+├── models/
+│   ├── final/
+│   │   ├── analytcs/
+│   │   │   ├── customer_metrics.sql
+│   │   │   ├── product_performance.sql
+│   │   │   └── sales_summary.sql
+│   │   ├── dimensions/
+│   │   │   ├── dim_customers.sql
+│   │   │   └── dim_products.sql
+│   │   └── facts/
+│   │       └── fct_sales.sql
+│   ├── int/
+│   │   ├── analytcs_int/
+│   │   │   ├── int_customer_metrics.sql
+│   │   │   ├── int_product_performance.sql
+│   │   │   └── int_sales_summary.sql
+│   │   ├── dim_int/
+│   │   │   ├── int_dim_customers.sql
+│   │   │   └── int_dim_products.sql
+│   │   └── facts_int/
+│   │       └── int_fct_sales.sql
+│   ├── final.yml
+│   ├── int.yml
+│   ├── stg/
+│   │   ├── stg_customers.sql
+│   │   ├── stg_order_items.sql
+│   │   ├── stg_orders.sql
+│   │   └── stg_products.sql
+│   └── stg.yml
+├── seeds/
+│   ├── raw_customer.csv
+│   ├── raw_order_items.csv
+│   ├── raw_orders.csv
+│   ├── raw_products.csv
+│   └── seeds.yml
+├── snapshots/
+├── tests/
+├── ARCHITECTURE.md
+├── CHANGELOG.md
+├── QUICKSTART.md
+├── dbt_project.yml
+├── profiles.yml.example
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── target/
 ```
-Raw Data (CSV Seeds)
-    ↓
-[STAGING] - Limpeza e validação
-    ├─ stg_customers
-    ├─ stg_orders
-    ├─ stg_order_items
-    └─ stg_products
-    ↓
-[INTERMEDIATE] - Agregações e joins
-    ├─ int_customers
-    ├─ int_order_details
-    └─ int_products
-    ↓
-[FINAL] - Modelos analíticos
-    ├─ DIMENSIONS
-    │  ├─ dim_customers
-    │  └─ dim_products
-    ├─ FACTS
-    │  └─ fct_sales
-    └─ ANALYTICS
-       ├─ customer_metrics
-       ├─ product_performance
-       └─ sales_summary
-```
 
-## 🛠️ Requisitos
+---
 
-- **Python** 3.9 ou superior
-- **PostgreSQL** 12 ou superior (instalado e em execução)
-- **pip** (gerenciador de pacotes Python)
-- **Git** (opcional, para versionamento)
+## Modelos principais
 
-### Verificar versões instaladas
+### Staging
+
+- `stg_customers`
+- `stg_orders`
+- `stg_order_items`
+- `stg_products`
+
+Esses modelos recebem os dados brutos e realizam limpeza, normalização e organização inicial.
+
+### Intermediate
+
+- `int_dim_customers`
+- `int_dim_products`
+- `int_fct_sales`
+- `int_customer_metrics`
+- `int_product_performance`
+- `int_sales_summary`
+
+Esses modelos unem as fontes e preparametrizam agregações e joins utilizados na camada final.
+
+### Final
+
+- `dim_customers`
+- `dim_products`
+- `fct_sales`
+- `customer_metrics`
+- `product_performance`
+- `sales_summary`
+
+Esses modelos são os mais adequados para consultas analíticas, BI e relatórios.
+
+---
+
+## Requisitos
+
+Antes de começar, você precisa ter instalado:
+
+- Python 3.9+
+- PostgreSQL
+- Git
+- Ambiente de terminal (PowerShell, bash ou zsh)
+
+> Se você ainda não tiver PostgreSQL instalado, acompanhe os passos abaixo para cada sistema operacional.
+
+---
+
+## Instalação do zero
+
+## 1 Linux (Ubuntu/Debian)
+
+### Instalar Python
 
 ```bash
-# Python
-python --version
+sudo apt update
+sudo apt install -y python3 python3-venv python3-pip git postgresql postgresql-contrib
+```
 
-# PostgreSQL
+### Verificar instalação
+
+```bash
+python3 --version
+pip --version
 psql --version
 ```
 
-## 🚀 Instalação
-
-Escolha o sistema operacional e execute os comandos na **raiz do projeto**.
-
-### Linux e macOS
+### Iniciar o PostgreSQL
 
 ```bash
-# 1. Criar ambiente virtual
+sudo service postgresql start
+```
+
+### Criar banco e usuário PostgreSQL
+
+```bash
+sudo -u postgres psql
+```
+
+Dentro do `psql`:
+
+```sql
+CREATE USER meu_usuario WITH PASSWORD 'minha_senha';
+CREATE DATABASE dbt_ecommerce OWNER meu_usuario;
+GRANT ALL PRIVILEGES ON DATABASE dbt_ecommerce TO meu_usuario;
+\q
+```
+
+---
+
+## 2 macOS
+
+### Instalar via Homebrew
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Depois:
+
+```bash
+brew update
+brew install python postgresql git
+```
+
+### Iniciar PostgreSQL
+
+```bash
+brew services start postgresql
+```
+
+### Criar banco e usuário PostgreSQL
+
+```bash
+psql postgres
+```
+
+Dentro do `psql`:
+
+```sql
+CREATE USER meu_usuario WITH PASSWORD 'minha_senha';
+CREATE DATABASE dbt_ecommerce OWNER meu_usuario;
+GRANT ALL PRIVILEGES ON DATABASE dbt_ecommerce TO meu_usuario;
+\q
+```
+
+---
+
+## 3 Windows 10/11
+
+### Opção A: instalar o PostgreSQL oficial
+
+1. Baixe o PostgreSQL em: https://www.postgresql.org/download/windows/
+2. Instale com a opção de incluir `pgAdmin` e `psql`.
+3. Durante a instalação, defina uma senha para o usuário `postgres`.
+4. Após instalar, abra o `SQL Shell (psql)`.
+
+### Criar banco e usuário no Windows
+
+```sql
+CREATE USER meu_usuario WITH PASSWORD 'minha_senha';
+CREATE DATABASE dbt_ecommerce OWNER meu_usuario;
+GRANT ALL PRIVILEGES ON DATABASE dbt_ecommerce TO meu_usuario;
+```
+
+### Opção B: instalar com winget
+
+```powershell
+winget install PostgreSQL.PostgreSQL
+```
+
+Depois, abra o terminal do PostgreSQL e execute os comandos acima.
+
+---
+
+## Clonar o projeto
+
+No terminal, rode:
+
+```bash
+git clone <url-do-repositorio>
+cd dbt_ecommerce_analytics
+```
+
+Se o projeto já estiver localmente no seu computador, basta entrar na pasta:
+
+```bash
+cd dbt_ecommerce_analytics
+```
+
+---
+
+## Instalar dependências do projeto
+
+### Criar ambiente virtual
+
+#### Linux/macOS
+
+```bash
 python3 -m venv .venv
-
-# 2. Ativar ambiente virtual
 source .venv/bin/activate
+```
 
-# 3. Atualizar pip e instalar dependências
+#### Windows PowerShell
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+#### Windows CMD
+
+```cmd
+py -m venv .venv
+.venv\Scripts\activate.bat
+```
+
+### Instalar as dependências
+
+```bash
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+```
 
-# 4. Criar diretório dbt e copiar perfil
+A dependência principal do projeto está no arquivo `requirements.txt`:
+
+```txt
+dbt-core==1.12.3
+dbt-postgres==1.11.0
+```
+
+---
+
+## Configurar o profile do dbt
+
+O dbt usa o arquivo `profiles.yml` para conectar ao PostgreSQL.
+
+### Linux/macOS
+
+```bash
 mkdir -p ~/.dbt
 cp profiles.yml.example ~/.dbt/profiles.yml
 ```
 
-### Windows PowerShell
+### Windows
+
+No PowerShell:
 
 ```powershell
-# 1. Criar ambiente virtual
-py -m venv .venv
-
-# 2. Ativar ambiente virtual
-.\.venv\Scripts\Activate.ps1
-
-# 3. Atualizar pip e instalar dependências
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-
-# 4. Criar diretório dbt e copiar perfil
 New-Item -ItemType Directory -Force "$HOME\.dbt" | Out-Null
 Copy-Item profiles.yml.example "$HOME\.dbt\profiles.yml"
 ```
 
-### Windows CMD
-
-```cmd
-# 1. Criar ambiente virtual
-py -m venv .venv
-
-# 2. Ativar ambiente virtual
-.venv\Scripts\activate.bat
-
-# 3. Atualizar pip e instalar dependências
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-
-# 4. Criar diretório dbt e copiar perfil
-if not exist "%USERPROFILE%\.dbt" mkdir "%USERPROFILE%\.dbt"
-copy /Y profiles.yml.example "%USERPROFILE%\.dbt\profiles.yml"
-```
-
-## ⚙️ Configuração
-
-### 1. Configurar PostgreSQL
-
-Certifique-se de que PostgreSQL está rodando:
-
-```bash
-# Linux
-sudo service postgresql status
-
-# macOS (com Homebrew)
-brew services list
-
-# Windows (verificar nos Serviços)
-```
-
-### 2. Configurar Profile dbt
-
-Edite o arquivo `~/.dbt/profiles.yml` com suas credenciais PostgreSQL:
+### Conteúdo inicial do profile
 
 ```yaml
 dbt_ecommerce_analytics:
@@ -141,280 +333,213 @@ dbt_ecommerce_analytics:
     dev:
       type: postgres
       host: localhost
-      user: seu_usuario_postgres
-      password: sua_senha_postgres
+      user: meu_usuario
+      password: minha_senha
       port: 5432
-      dbname: seu_banco_de_dados
-      schema: analytics_staging
+      dbname: dbt_ecommerce
+      schema: public
       threads: 4
-      keepalives_idle: 0
 ```
 
-### 3. Validar Conexão
-
-```bash
-dbt debug
-```
-
-Você deve ver: ✅ `All checks passed!`
-
-## 📦 Estrutura do Projeto
-
-```
-dbt_ecommerce_analytics/
-├── models/
-│   ├── stg/              # Staging (limpeza de dados brutos)
-│   │   ├── stg_customers.sql
-│   │   ├── stg_orders.sql
-│   │   ├── stg_order_items.sql
-│   │   ├── stg_products.sql
-│   │   └── schema.yml
-│   ├── int/              # Intermediate (transformações complexas)
-│   │   ├── int_customers.sql
-│   │   ├── int_order_details.sql
-│   │   ├── int_products.sql
-│   │   └── schema.yml
-│   ├── final/            # Final (modelos analíticos)
-│   │   ├── dimensions/
-│   │   │   ├── dim_customers.sql
-│   │   │   └── dim_products.sql
-│   │   ├── facts/
-│   │   │   └── fct_sales.sql
-│   │   ├── analytics/
-│   │   │   ├── customer_metrics.sql
-│   │   │   ├── product_performance.sql
-│   │   │   └── sales_summary.sql
-│   │   └── schema.yml
-│   └── stg.yml           # Testes para staging
-├── seeds/                # Dados CSV para carregar
-│   ├── raw_customers.csv
-│   ├── raw_orders.csv
-│   ├── raw_order_items.csv
-│   ├── raw_products.csv
-│   └── seeds.yml
-├── tests/                # Testes customizados
-├── macros/               # Macros reutilizáveis
-├── analyses/             # Análises ad-hoc
-├── dbt_project.yml       # Configuração do projeto
-├── profiles.yml.example  # Exemplo de profile
-├── requirements.txt      # Dependências Python
-└── README.md             # Este arquivo
-```
-
-## ▶️ Execução
-
-Ative o ambiente virtual antes de rodar qualquer comando dbt:
-
-```bash
-# Linux e macOS
-source .venv/bin/activate
-
-# Windows
-.venv\Scripts\activate
-```
-
-### Comandos Principais
-
-```bash
-# 1. Carregar dados brutos (seeds)
-dbt seed
-
-# 2. Executar todos os modelos
-dbt run
-
-# 3. Executar testes
-dbt test
-
-# 4. Executar seed, run e test (pipeline completo)
-dbt build
-
-# 5. Gerar documentação
-dbt docs generate
-
-# 6. Servir documentação (abre no navegador)
-dbt docs serve
-
-# 7. Limpar artifacts
-dbt clean
-
-# 8. Visualizar DAG
-dbt dag
-```
-
-### Exemplo: Executar Pipeline Completo
-
-```bash
-# Ativar ambiente
-source .venv/bin/activate
-
-# Validar conexão
-dbt debug
-
-# Executar pipeline completo
-dbt build
-
-# Ver resultados
-dbt docs serve
-```
-
-## 📊 Exemplos de Consultas
-
-Após executar `dbt build`, você pode consultar os dados em seu banco PostgreSQL:
-
-### Resumo de Vendas
-
-```sql
-SELECT * FROM analytics_staging.fct_sales LIMIT 10;
-```
-
-### Métricas de Clientes
-
-```sql
-SELECT * FROM analytics_staging.customer_metrics LIMIT 10;
-```
-
-### Performance de Produtos
-
-```sql
-SELECT * FROM analytics_staging.product_performance ORDER BY total_revenue DESC;
-```
-
-## ✅ Testes e Validação
-
-### Testes Automáticos
-
-O projeto inclui testes automáticos para garantir qualidade dos dados:
-
-```bash
-# Rodar todos os testes
-dbt test
-
-# Rodar testes de um modelo específico
-dbt test --select stg_customers
-
-# Rodar com output detalhado
-dbt test --debug
-```
-
-### Testes Implementados
-
-- **Not Null**: Verifica se campos obrigatórios não contêm nulos
-- **Unique**: Verifica se chaves primárias são únicas
-- **Referential Integrity**: Verifica relacionamentos entre tabelas
-
-### Exemplo de Resultado
-
-```
-Running with dbt 1.12.3
-...
-20 tests passed
-0 tests failed
-```
-
-## 🔍 Visualizar Documentação
-
-```bash
-dbt docs generate
-dbt docs serve
-```
-
-Isso abrirá uma interface web com:
-- 📖 Documentação de cada modelo
-- 🔗 Lineage (dependências entre modelos)
-- 📋 Descrição de colunas
-- 🧪 Resultados de testes
-
-## 🐛 Troubleshooting
-
-### Erro: "Profile not found"
-```bash
-# Verificar se profiles.yml existe
-ls ~/.dbt/profiles.yml
-
-# Recriá-lo
-cp profiles.yml.example ~/.dbt/profiles.yml
-```
-
-### Erro: "Connection refused"
-```bash
-# Verificar se PostgreSQL está rodando
-psql --version
-sudo service postgresql status  # Linux
-# ou verificar nas preferências do macOS/Windows
-```
-
-### Erro: "Schema does not exist"
-```bash
-# Criar schema no PostgreSQL
-psql -U seu_usuario -d seu_banco -c "CREATE SCHEMA analytics_staging;"
-```
-
-### Erro: "Module not found"
-```bash
-# Reinstalar dependências
-pip install -r requirements.txt --force-reinstall
-```
-
-## 📝 Exemplo de Desenvolvimento
-
-Para adicionar um novo modelo:
-
-1. **Criar arquivo SQL** em `models/stg/meu_modelo.sql`:
-```sql
-{{ config(materialized='view') }}
-
-select
-    id,
-    nome,
-    data_criacao
-from {{ ref("raw_tabela") }}
-```
-
-2. **Documentar em** `models/stg.yml`:
-```yaml
-- name: meu_modelo
-  description: "Descrição do modelo"
-  columns:
-    - name: id
-      tests:
-        - unique
-        - not_null
-```
-
-3. **Testar**:
-```bash
-dbt run
-dbt test
-```
-
-## 📚 Recursos Úteis
-
-- [Documentação oficial dbt](https://docs.getdbt.com/)
-- [dbt Best Practices](https://docs.getdbt.com/guides/best-practices)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [Analytics Engineering Guide](https://www.getdbt.com/analytics-engineering/)
-
-## 📄 Licença
-
-Este projeto é fornecido como está para fins educacionais e comerciais.
+Edite o arquivo com os dados reais do seu PostgreSQL.
 
 ---
 
-**Última atualização:** 2026-08-29
-**Versão do projeto:** 1.0.0
+## Validar a conexão
+
+Execute:
 
 ```bash
 dbt debug
+```
+
+Se tudo estiver correto, você verá uma mensagem confirmando que os checks passaram.
+
+Se ocorrer algum erro, verifique:
+
+- se o PostgreSQL está rodando;
+- se o banco existe;
+- se o usuário e senha estão corretos;
+- se o arquivo `~/.dbt/profiles.yml` foi criado corretamente.
+
+---
+
+## Executar o projeto
+
+### Carregar seeds
+
+```bash
+dbt seed
+```
+
+### Rodar os modelos
+
+```bash
+dbt run
+```
+
+### Executar testes
+
+```bash
+dbt test
+```
+
+### Rodar tudo em um único comando
+
+```bash
+dbt build
+```
+
+### Gerar documentação
+
+```bash
+dbt docs generate
+```
+
+### Servir a documentação localmente
+
+```bash
+dbt docs serve
+```
+
+Em seguida, abra no navegador a URL exibida no terminal, normalmente:
+
+```text
+http://localhost:8000
+```
+
+---
+
+## Fluxo recomendado para uso diário
+
+```bash
 dbt seed
 dbt run
 dbt test
 ```
 
-Os artefatos gerados em `target/` e os logs não devem ser versionados.
+Ou, para uma execução completa:
 
-### Estrutura
+```bash
+dbt build
+```
 
-- `seeds/`: dados brutos em CSV
-- `models/stg/`: modelos de staging e testes de qualidade
-- `profiles.yml.example`: configuração de conexão com PostgreSQL
-- `requirements.txt`: dependência do adaptador PostgreSQL do dbt
+---
+
+## Exemplos de consultas
+
+Depois de rodar os modelos, você pode consultar os dados no PostgreSQL.
+
+### Ver as vendas detalhadas
+
+```sql
+SELECT * FROM public.fct_sales LIMIT 20;
+```
+
+### Ver métricas por cliente
+
+```sql
+SELECT * FROM public.customer_metrics ORDER BY total_spent DESC LIMIT 10;
+```
+
+### Ver performance de produtos
+
+```sql
+SELECT * FROM public.product_performance ORDER BY revenue DESC LIMIT 10;
+```
+
+### Ver resumo mensal
+
+```sql
+SELECT * FROM public.sales_summary ORDER BY month DESC LIMIT 12;
+```
+
+---
+
+## Documentação do projeto
+
+Os principais metadados do projeto ficam em:
+
+- `models/stg.yml`
+- `models/int.yml`
+- `models/final.yml`
+- `seeds/seeds.yml`
+
+Esses arquivos descrevem as tabelas e colunas, além de testes como `not_null` e `unique`.
+
+---
+
+## Dicas de troubleshooting
+
+### Erro: profile not found
+
+```bash
+ls ~/.dbt
+```
+
+Se o arquivo não existir:
+
+```bash
+mkdir -p ~/.dbt
+cp profiles.yml.example ~/.dbt/profiles.yml
+```
+
+### Erro: connection refused
+
+Verifique se o PostgreSQL está ativo.
+
+Linux:
+
+```bash
+sudo service postgresql status
+```
+
+macOS:
+
+```bash
+brew services list
+```
+
+### Erro: database does not exist
+
+Crie o banco manualmente no PostgreSQL:
+
+```sql
+CREATE DATABASE dbt_ecommerce;
+```
+
+### Erro: permission denied
+
+Ajuste as permissões do usuário no PostgreSQL:
+
+```sql
+GRANT ALL PRIVILEGES ON DATABASE dbt_ecommerce TO meu_usuario;
+```
+
+---
+
+## Boas práticas
+
+- mantenha o ambiente virtual ativo ao trabalhar com o projeto;
+- sempre valide a conexão com `dbt debug` antes de rodar o pipeline;
+- execute `dbt build` para validar o fluxo completo;
+- use `dbt docs serve` para navegar pela documentação e lineage dos modelos;
+- não versionar arquivos gerados em `target/` em ambientes de produção.
+
+---
+
+## Recursos úteis
+
+- Documentação oficial do dbt: https://docs.getdbt.com/
+- Documentação do PostgreSQL: https://www.postgresql.org/docs/
+- Arquitetura do projeto: [ARCHITECTURE.md](ARCHITECTURE.md)
+- Guia rápido: [QUICKSTART.md](QUICKSTART.md)
+
+---
+
+## Conclusão
+
+Este projeto fornece uma base sólida para analytics de e-commerce com dbt, cobrindo desde a ingestão de dados em CSV até a criação de modelos analíticos finalizados para BI.
+
+Com os passos acima, qualquer pessoa consegue configurar o ambiente do zero, instalar as dependências, conectar ao PostgreSQL e executar o pipeline completo.
+
