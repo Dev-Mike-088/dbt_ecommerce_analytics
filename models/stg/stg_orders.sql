@@ -1,10 +1,11 @@
 -- =============================================================================
--- STAGING: Limpeza e normalização de dados de pedidos
+-- STAGING: stg_orders
 -- =============================================================================
--- Descrição: Tabela de staging que padroniza e valida dados de pedidos
---            vindos da seed raw_orders. Inclui validações de status.
--- Materialização: TABLE (para melhor performance em joins downstream)
--- Frequência: Atualizada a cada execução dbt run
+-- Descrição: modelo de staging para pedidos, padronizando a estrutura e os dados
+--            vindos da seed raw_orders para uso na camada intermediate.
+-- Origem: raw_orders
+-- Materialização: table
+-- Objetivo: consolidar pedidos e status para joins com clientes e itens.
 -- =============================================================================
 
 {{

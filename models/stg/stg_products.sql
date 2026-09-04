@@ -1,10 +1,11 @@
 -- =============================================================================
--- STAGING: Limpeza e normalização de dados de produtos
+-- STAGING: stg_products
 -- =============================================================================
--- Descrição: Tabela de staging que padroniza e valida dados de produtos
---            vindos da seed raw_products. Normaliza nomes e categorias.
--- Materialização: TABLE (para melhor performance em joins downstream)
--- Frequência: Atualizada a cada execução dbt run
+-- Descrição: modelo de staging para produtos, normalizando nome, categoria e preço
+--            vindos da seed raw_products para uso nas camadas downstream.
+-- Origem: raw_products
+-- Materialização: table
+-- Objetivo: alimentar dimensões e fatos de produtos.
 -- =============================================================================
 
 {{

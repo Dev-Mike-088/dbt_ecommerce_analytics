@@ -1,10 +1,11 @@
 -- =============================================================================
--- STAGING: Limpeza e normalização de dados de clientes
+-- STAGING: stg_customers
 -- =============================================================================
--- Descrição: Tabela de staging que padroniza e valida dados de clientes
---            vindos da seed raw_customer. Remove duplicatas e normaliza formatos.
--- Materialização: TABLE (para melhor performance em joins downstream)
--- Frequência: Atualizada a cada execução dbt run
+-- Descrição: modelo de staging para clientes, padronizando e validando os dados
+--            vindos da seed raw_customer antes de alimentar a camada intermediate.
+-- Origem: raw_customer
+-- Materialização: table
+-- Objetivo: preparar a base para joins e enriquecimentos downstream.
 -- =============================================================================
 
 {{

@@ -1,28 +1,19 @@
 -- =============================================================================
--- FINAL: Tabela de Fatos - Vendas
+-- FINAL: fct_sales
 -- =============================================================================
--- Descrição: Tabela de fatos central que registra cada venda com suas dimensões
---            (cliente, produto, etc). Centro da análise analítica.
--- Materialización: VIEW (com agregações)
--- Frequência: Atualizada a cada execução dbt run
--- Uso: Análises de vendas, receita, produtos mais vendidos, comportamento de compra
--- Granularidade: Um registro por item de pedido
+-- Descrição: tabela final de fatos de vendas, registrando cada item vendido com
+--            referência ao cliente, produto e data da transação.
+-- Origem: int_fct_sales
+-- Materialização: view
+-- Objetivo: disponibilizar a base granular de vendas para relatórios e métricas analíticas.
 -- =============================================================================
 
 {{
     config(
         materialized = 'view',
-        schema = 'final_facts'
     )
 }}
 
 select
-    a.order_id,
-    a.product_id,
-    a.customer_id,
-    a.sell_date,
-    a.quantity,
-    a.price,
-    sum(a.total) as total_amount  -- Soma do total dos itens
-from {{ ref('int_order_details') }} a
-group by 1, 2, 3, 4, 5, 6
+*
+from {{ ref('int_fct_sales') }} 

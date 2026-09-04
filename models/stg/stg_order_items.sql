@@ -1,10 +1,11 @@
 -- =============================================================================
--- STAGING: Limpeza e normalização de itens de pedidos
+-- STAGING: stg_order_items
 -- =============================================================================
--- Descrição: Tabela de staging que relaciona produtos com pedidos
---            e inclui quantidades e preços de cada item.
--- Materialização: TABLE (para melhor performance em joins downstream)
--- Frequência: Atualizada a cada execução dbt run
+-- Descrição: modelo de staging para itens de pedido, trazendo quantidade e preço
+--            unitário da seed raw_order_items para uso em agregações e fatos.
+-- Origem: raw_order_items
+-- Materialização: table
+-- Objetivo: preparar os itens para joins com pedidos, clientes e produtos.
 -- =============================================================================
 
 {{

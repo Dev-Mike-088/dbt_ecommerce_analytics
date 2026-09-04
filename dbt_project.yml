@@ -1,107 +1,62 @@
-# =============================================================================
-# dbt Ecommerce Analytics - Project Configuration
-# =============================================================================
-# Nome do projeto dbt
-name: 'dbt_ecommerce_analytics'
-version: '1.0.0'
-
-# Profile usado para conectar ao banco de dados (definido em ~/.dbt/profiles.yml)
-profile: 'dbt_ecommerce_analytics'
-
-# Modelo de controle de versão (optional)
+name: "dbt_ecommerce_analytics"
+version: "1.0.0"
 config-version: 2
 
-# =============================================================================
-# Paths - Onde encontrar diferentes tipos de arquivos
-# =============================================================================
-model-paths: ["models"]           # Modelos SQL e YAML
-analysis-paths: ["analyses"]      # Análises ad-hoc
-test-paths: ["tests"]             # Testes customizados
-seed-paths: ["seeds"]             # Dados CSV para carregar
-macro-paths: ["macros"]           # Macros reutilizáveis
-snapshot-paths: ["snapshots"]     # Snapshots (SCD)
+profile: "dbt_ecommerce_analytics"
 
-# =============================================================================
-# Clean Targets - Diretórios removidos ao executar 'dbt clean'
-# =============================================================================
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
 clean-targets:
   - "target"
   - "dbt_packages"
 
-# =============================================================================
-# Configuração de Modelos
-# =============================================================================
-# Documentação completa: https://docs.getdbt.com/docs/configuring-models
-
 models:
   dbt_ecommerce_analytics:
-    # =========================================================================
-    # STAGING - Modelos de limpeza e validação (primeira camada)
-    # =========================================================================
+    +materialized: table
+
     stg:
-      +materialized: table        # Usar TABLE para melhor performance
-      +schema: transacoes         # Schema separado no banco
-      +tags: ["staging"]          # Tags para filtragem
-      +docs:
-        show: true                # Mostrar na documentação
+      +materialized: table
+      +schema: analytics_staging
+      +tags: ["staging"]
 
-    # =========================================================================
-    # INTERMEDIATE - Transformações complexas (segunda camada)
-    # =========================================================================
     int:
-      +materialized: incremental  # Usar INCREMENTAL para otimizar
-      +schema: transacoes
+      +materialized: incremental
+      +schema: analytics_int
       +tags: ["intermediate"]
-      +docs:
-        show: true
 
-    # =========================================================================
-    # FINAL - Modelos analíticos prontos para BI (terceira camada)
-    # =========================================================================
     final:
-      +schema: transacoes
+      +materialized: view
+      +schema: analytics
       +tags: ["final"]
-      +docs:
-        show: true
 
-      # Dimensions
       dimensions:
-        +materialized: table
+        +materialized: view
         +tags: ["dimension"]
 
-      # Facts
       facts:
-        +materialized: table
+        +materialized: view
         +tags: ["fact"]
 
-      # Analytics/Reporting
       analytcs:
         +materialized: view
         +tags: ["analytics", "reporting"]
 
-# =============================================================================
-# Seed Configurations - Configurações para dados CSV
-# =============================================================================
 seeds:
   dbt_ecommerce_analytics:
-    +schema: raw                  # Schema para dados brutos
+    +schema: raw
     +tags: ["seed"]
 
-# =============================================================================
-# Vars - Variáveis globais que podem ser usadas nos modelos
-# =============================================================================
 vars:
-  'start_date': '2023-01-01'      # Data de início para filtros
-  'key_date': '{{ run_started_at.strftime("%Y-%m-%d") }}'  # Data da execução
+  start_date: "2023-01-01"
+  key_date: '{{ run_started_at.strftime("%Y-%m-%d") }}'
 
-# =============================================================================
-# Require dbt Version - Versão mínima do dbt necessária
-# =============================================================================
 require-dbt-version: [">=1.0.0"]
 
-# =============================================================================
-# Flags - Comportamento global do dbt
-# =============================================================================
 flags:
-  static_parser: false            # Parser estático (experimental)
-  send_anonymous_usage_stats: true # Compartilhar estatísticas anônimas
+  static_parser: false
+  send_anonymous_usage_stats: true
